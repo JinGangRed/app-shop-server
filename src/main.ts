@@ -1,15 +1,14 @@
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ConfigService } from '@nestjs/config';
 // import setupApp from './plugins';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-  console.log('process.env', process.env.PORT);
+  const port = process.env.PORT || configService.get('port') || 3000;
 
-  console.log('configService', configService.get('port'));
   // setupApp(app);
-  await app.listen(3000);
+  await app.listen(port);
 }
 bootstrap();

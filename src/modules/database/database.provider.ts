@@ -11,8 +11,16 @@ export const databaseProvider: Provider = {
     const connection = () => {
       mongoose.connect(dbConnection, {});
     };
-    if (dbConnection) {
-      return await connection();
-    }
+
+    mongoose.connection.on('connecting', () => {
+      console.log('connecting...');
+    });
+
+    mongoose.connection.on('connected', () => {
+      console.log('connected.');
+    });
+    // if (dbConnection) {
+    return await connection();
+    // }
   },
 };
