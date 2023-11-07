@@ -1,16 +1,17 @@
+import { MongooseDoc, MongooseModel } from '@/types/database/index';
 import { InjectModel } from '@/transformers/model.transformer';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Model } from 'mongoose';
 import { JWTConfig } from '@/constants/security.constant';
 import { TokenResult } from '@/types/security';
 import { Account, CreateAccountDTO, LoginAccountDTO } from '@/types/account';
-import { assignIn } from 'lodash';
+import lodash from 'lodash';
+import { ObjectId } from 'mongoose';
 @Injectable()
 export class AccountService {
   constructor(
     private readonly jwtService: JwtService,
-    @InjectModel(Account) private readonly accountModel: Model<Account>,
+    @InjectModel(Account) private readonly accountModel: MongooseModel<Account>,
   ) {}
 
   /**
@@ -22,10 +23,26 @@ export class AccountService {
       expiresIn: JWTConfig.JWTExpiresIn,
     };
   }
+  /**
+   * create a account
+   * @param {CreateAccountDTO} accountDTO
+   * @returns the created account
+   */
+  public async create(
+    accountDTO: CreateAccountDTO,
+  ): Promise<MongooseDoc<Account>> {
+    const account = new Account();
+    lodash.assignIn(account, accountDTO, { createTime: Date.now });
+    const accountDoc = await this.accountModel.create(account);
+    return accountDoc;
+  }
 
-  public create(account: CreateAccountDTO): Account {
-    const accountDoc = new Account();
-    assignIn(accountDoc, account, { createTime: Date.now });
-    this.accountModel.create(account);
+  public async delete(id: ObjectId): Promise<MongooseDoc<Account>> {
+    const account = this.accountModel.findByIdAndUpdate(
+      id,
+      { IsActive: false },
+      { returnDocument: 'after' },
+    );
+    return account;
   }
 }
