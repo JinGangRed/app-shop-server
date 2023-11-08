@@ -1,4 +1,5 @@
 import { DB_CONNECTION_TOKEN } from '@/constants/database.constant';
+import setupPlugins from '@/plugins/mongoose';
 import { Provider } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import mongoose from 'mongoose';
@@ -12,6 +13,7 @@ export const databaseProvider: Provider = {
       mongoose.connect(dbConnection, {});
     };
 
+    mongoose.plugin(setupPlugins);
     mongoose.connection.on('connecting', () => {
       console.log('connecting...');
     });

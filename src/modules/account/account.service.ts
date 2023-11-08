@@ -4,7 +4,12 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JWTConfig } from '@/constants/security.constant';
 import { TokenResult } from '@/types/security';
-import { Account, CreateAccountDTO, LoginAccountDTO } from '@/types/account';
+import {
+  Account,
+  CreateAccountDTO,
+  LoginAccountDTO,
+  UpdateAccountDTO,
+} from '@/types/account';
 import lodash from 'lodash';
 import { ObjectId } from 'mongoose';
 @Injectable()
@@ -37,12 +42,41 @@ export class AccountService {
     return accountDoc;
   }
 
+  /**
+   * Delete a Account
+   * @param id
+   * @returns
+   */
   public async delete(id: ObjectId): Promise<MongooseDoc<Account>> {
-    const account = this.accountModel.findByIdAndUpdate(
-      id,
-      { IsActive: false },
-      { returnDocument: 'after' },
-    );
+    const account = this.accountModel.findByIdAndDelete(id, {
+      returnDocument: 'after',
+    });
     return account;
+  }
+
+  /**
+   * update a account
+   * @param id
+   * @param accountDTO
+   * @returns
+   */
+  public async update(
+    id: ObjectId,
+    accountDTO: UpdateAccountDTO,
+  ): Promise<MongooseDoc<Account>> {
+    const account = await this.accountModel.findByIdAndUpdate(id, accountDTO, {
+      returnDocument: 'after',
+    });
+    return account;
+  }
+
+  /**
+   * Query a account by ID
+   * @param id
+   * @returns
+   */
+  public async query(id: ObjectId): Promise<MongooseDoc<Account>> {
+    const account = await this.accountModel.findById(id);
+    return account || Promise.reject(`Account ${id} not found`);
   }
 }

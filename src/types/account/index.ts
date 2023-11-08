@@ -1,6 +1,6 @@
 import { prop } from '@typegoose/typegoose';
-import { BaseEntity } from '../base';
-export class Account extends BaseEntity {
+import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
+export class Account extends TimeStamps {
   @prop({ required: true })
   name: string;
 
@@ -12,6 +12,8 @@ export class Account extends BaseEntity {
 }
 export type LoginAccountDTO = Pick<Account, 'name' | 'password'>;
 
-export type UpdateAccountDTO = Omit<Account, 'createBy' | 'createTime'>;
+export type UpdateAccountDTO = Partial<
+  Omit<Account, 'createdAt' | 'updatedAt'>
+>;
 
-export type CreateAccountDTO = Omit<Account, 'createBy' | 'createTime'>;
+export type CreateAccountDTO = Omit<Account, 'createdAt' | 'updatedAt'>;
