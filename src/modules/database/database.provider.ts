@@ -10,7 +10,7 @@ export const databaseProvider: Provider = {
   useFactory: async (configService: ConfigService) => {
     const dbConnection = configService.get('mongoosedbConnection');
     const connection = () => {
-      mongoose.connect(dbConnection, {});
+      mongoose.connect(dbConnection, {}).catch((error) => console.log(error));
     };
 
     mongoose.plugin(setupPlugins);
