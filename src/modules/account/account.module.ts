@@ -3,6 +3,7 @@ import { AccountProvider } from './account.model';
 import { AccountService } from './account.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JWTConfig } from '@/constants/security.constant';
+import { AccountController } from './account.controller';
 
 @Module({
   imports: [
@@ -12,5 +13,6 @@ import { JWTConfig } from '@/constants/security.constant';
     }),
   ],
   providers: [AccountProvider, AccountService],
+  controllers: [AccountController],
 })
 export class AccountModule {}

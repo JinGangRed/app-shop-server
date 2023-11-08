@@ -20,7 +20,9 @@
       "provider": false,
       "pr": false,
       "service": false,
-      "s": false
+      "s": false,
+      "controller": false,
+      "co": false
     }
   }
 }
