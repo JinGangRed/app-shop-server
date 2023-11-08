@@ -1,16 +1,15 @@
-import { MongooseDoc, MongooseModel } from '@/types/database/index';
-import { InjectModel } from '@/transformers/model.transformer';
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { JWTConfig } from '@/constants/security.constant';
-import { TokenResult } from '@/types/security';
+import { InjectModel } from '@/transformers/model.transformer';
 import {
   Account,
   CreateAccountDTO,
   LoginAccountDTO,
   UpdateAccountDTO,
 } from '@/types/account';
-import lodash from 'lodash';
+import { MongooseDoc, MongooseModel } from '@/types/database/index';
+import { TokenResult } from '@/types/security';
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { ObjectId } from 'mongoose';
 @Injectable()
 export class AccountService {
@@ -36,10 +35,14 @@ export class AccountService {
   public async create(
     accountDTO: CreateAccountDTO,
   ): Promise<MongooseDoc<Account>> {
-    const account = new Account();
-    lodash.assignIn(account, accountDTO, { createTime: Date.now });
-    const accountDoc = await this.accountModel.create(account);
+    const accountDoc = await this.accountModel.create(accountDTO);
     return accountDoc;
+  }
+
+  public async bulkInsert(
+    accountDTOs: Array<CreateAccountDTO>,
+  ): Promise<CreateAccountDTO[]> {
+    return await this.accountModel.insertMany(accountDTOs);
   }
 
   /**
