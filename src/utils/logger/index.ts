@@ -4,7 +4,11 @@ const { combine, json } = format;
 const winstonLogger = createLogger({
   format: combine(json()),
   transports: [
-    new transports.File({ filename: 'error.log', level: 'error' }),
+    new transports.File({
+      dirname: 'logs',
+      filename: 'error.log',
+      level: 'error',
+    }),
     new transports.DailyRotateFile({
       dirname: 'logs',
       filename: '%DATE%.log',

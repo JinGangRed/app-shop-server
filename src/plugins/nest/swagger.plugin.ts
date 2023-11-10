@@ -7,6 +7,7 @@ const setupSwagger = (app: INestApplication, config: ConfigService) => {
   const options = new DocumentBuilder()
     .setTitle(config.get(envConstants.swaggerTitle))
     .setDescription(config.get(envConstants.swaggerDescription))
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(

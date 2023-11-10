@@ -2,12 +2,12 @@ import { CreateAccountDTO } from '@/types/account';
 
 export const defaultAccount: CreateAccountDTO[] = [
   {
-    name: 'Admin',
+    username: 'Admin',
     password: 'admin',
     avatar: '',
   },
   {
-    name: 'Guest',
+    username: 'Guest',
     password: 'guest',
     avatar: '',
   },

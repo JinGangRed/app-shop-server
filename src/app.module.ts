@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 import { AccountModule } from './modules/account/account.module';
 import { DatabaseModule } from './modules/database/database.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 const loadEnvFile = () => {
   const envFile = [`.env.${process.env.NODE_ENV}`, '.env'];
@@ -19,6 +20,7 @@ const loadEnvFile = () => {
     }),
     DatabaseModule,
     AccountModule,
+    AuthModule,
   ],
   controllers: [],
 })

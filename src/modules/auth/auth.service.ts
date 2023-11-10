@@ -8,17 +8,19 @@ import { LoginAccountDTO } from '@/types/account';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: AccountService,
+    private readonly accountService: AccountService,
     private readonly jwtService: JwtService,
   ) {}
 
   async signIn(loginAccount: LoginAccountDTO): Promise<TokenResult> {
-    const account = await this.usersService.findOne(loginAccount.name);
+    const account = await this.accountService.findOne({
+      username: loginAccount.username,
+    });
     if (account?.password !== loginAccount.password) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       throw new UnauthorizedException();
     }
-    const payload = { username: account.name, sub: account._id };
+    const payload = { username: account.username, sub: account._id };
     return {
       accessToken: await this.jwtService.signAsync(payload),
       expiresIn: JWTConfig.JWTExpiresIn,

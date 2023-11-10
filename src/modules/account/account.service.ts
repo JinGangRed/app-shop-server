@@ -1,13 +1,7 @@
-import { JWTConfig } from '@/constants/security.constant';
+import { QueryAccountDTO } from '@/types/account';
 import { InjectModel } from '@/transformers/model.transformer';
-import {
-  Account,
-  CreateAccountDTO,
-  LoginAccountDTO,
-  UpdateAccountDTO,
-} from '@/types/account';
+import { Account, CreateAccountDTO, UpdateAccountDTO } from '@/types/account';
 import { MongooseDoc, MongooseModel } from '@/types/database/index';
-import { TokenResult } from '@/types/security';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ObjectId } from 'mongoose';
@@ -18,15 +12,6 @@ export class AccountService {
     @InjectModel(Account) private readonly accountModel: MongooseModel<Account>,
   ) {}
 
-  /**
-   * createToken
-   */
-  public createToken(account: LoginAccountDTO): TokenResult {
-    return {
-      accessToken: this.jwtService.sign({ ...account }),
-      expiresIn: JWTConfig.JWTExpiresIn,
-    };
-  }
   /**
    * create a account
    * @param {CreateAccountDTO} accountDTO
@@ -50,7 +35,7 @@ export class AccountService {
    * @param id
    * @returns
    */
-  public async delete(id: ObjectId): Promise<MongooseDoc<Account>> {
+  public async delete(id: ObjectId | string): Promise<MongooseDoc<Account>> {
     const account = this.accountModel.findByIdAndDelete(id, {
       returnDocument: 'after',
     });
@@ -64,7 +49,7 @@ export class AccountService {
    * @returns
    */
   public async update(
-    id: ObjectId,
+    id: ObjectId | string,
     accountDTO: UpdateAccountDTO,
   ): Promise<MongooseDoc<Account>> {
     const account = await this.accountModel.findByIdAndUpdate(id, accountDTO, {
@@ -80,6 +65,16 @@ export class AccountService {
    */
   public async query(id: ObjectId): Promise<MongooseDoc<Account>> {
     const account = await this.accountModel.findById(id);
-    return account || Promise.reject(`Account ${id} not found`);
+    return account;
+  }
+
+  /**
+   * query one document by condations
+   * @param query The condation of the query
+   * @returns
+   */
+  public async findOne(query: QueryAccountDTO): Promise<MongooseDoc<Account>> {
+    const account = await this.accountModel.findOne(query);
+    return account;
   }
 }
