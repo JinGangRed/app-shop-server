@@ -1,6 +1,7 @@
-import { prop } from '@typegoose/typegoose';
-import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
-export class Account extends TimeStamps {
+import { Ref, prop } from '@typegoose/typegoose';
+import { Role } from '../role';
+import { TrackActionModel } from '../base';
+export class Account extends TrackActionModel {
   @prop({ required: true })
   username: string;
 
@@ -9,6 +10,9 @@ export class Account extends TimeStamps {
 
   @prop({ required: true })
   password: string;
+
+  @prop({ type: () => Role })
+  roles?: Ref<Role>[];
 }
 export type LoginAccountDTO = Pick<Account, 'username' | 'password'>;
 

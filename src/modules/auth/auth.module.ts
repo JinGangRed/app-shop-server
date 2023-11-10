@@ -8,13 +8,14 @@ import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
-    AccountModule,
-    PassportModule,
     JwtModule.register({
       secret: JWTConfig.JWTSecret,
       signOptions: { expiresIn: JWTConfig.JWTExpiresIn },
     }),
+    AccountModule,
+    PassportModule,
   ],
   providers: [AuthService, JwtStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}

@@ -9,12 +9,18 @@ import {
   Put,
 } from '@nestjs/common';
 import { AccountService } from './account.service';
-import { Account, CreateAccountDTO, UpdateAccountDTO } from '@/types/account';
+import {
+  Account,
+  CreateAccountDTO,
+  UpdateAccountDTO,
+} from '@/types/entities/account';
 import { ObjectId } from 'mongoose';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { upperFirst } from 'lodash';
+const contollerName = 'account';
 @ApiBearerAuth()
-@ApiTags('Account')
-@Controller('account')
+@ApiTags(upperFirst(contollerName))
+@Controller(contollerName)
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 

@@ -1,4 +1,4 @@
-import { CreateAccountDTO } from '@/types/account';
+import { CreateAccountDTO } from '@/types/entities/account';
 
 export const defaultAccount: CreateAccountDTO[] = [
   {

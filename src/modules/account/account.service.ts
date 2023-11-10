@@ -1,14 +1,16 @@
-import { QueryAccountDTO } from '@/types/account';
+import { QueryAccountDTO } from '@/types/entities/account';
 import { InjectModel } from '@/transformers/model.transformer';
-import { Account, CreateAccountDTO, UpdateAccountDTO } from '@/types/account';
-import { MongooseDoc, MongooseModel } from '@/types/database/index';
+import {
+  Account,
+  CreateAccountDTO,
+  UpdateAccountDTO,
+} from '@/types/entities/account';
+import { MongooseDoc, MongooseModel } from '@/types/database';
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { ObjectId } from 'mongoose';
 @Injectable()
 export class AccountService {
   constructor(
-    private readonly jwtService: JwtService,
     @InjectModel(Account) private readonly accountModel: MongooseModel<Account>,
   ) {}
 

@@ -22,8 +22,8 @@ export const databaseProvider: Provider = {
     mongoose.connection.on('connected', () => {
       console.log('connected.');
     });
-    if (dbConnection) {
-      return await connection();
-    }
+    // if (dbConnection) {
+    //   return await connection();
+    // }
   },
 };

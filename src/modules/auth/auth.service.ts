@@ -3,7 +3,7 @@ import { AccountService } from '@/modules/account/account.service';
 import { JwtService } from '@nestjs/jwt';
 import { TokenResult } from '@/types/security';
 import { JWTConfig } from '@/constants/security.constant';
-import { LoginAccountDTO } from '@/types/account';
+import { LoginAccountDTO } from '@/types/entities/account';
 
 @Injectable()
 export class AuthService {
