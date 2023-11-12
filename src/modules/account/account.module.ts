@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { AccountProvider } from './account.model';
 import { AccountService } from './account.service';
 import { AccountController } from './account.controller';

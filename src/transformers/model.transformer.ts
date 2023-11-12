@@ -1,7 +1,8 @@
-import { DB_CONNECTION_TOKEN } from '@/constants/database.constant';
 import { Inject, Provider } from '@nestjs/common';
 import { getModelForClass } from '@typegoose/typegoose';
 import { Connection } from 'mongoose';
+
+import { DB_CONNECTION_TOKEN } from '@/constants/database.constant';
 
 export interface TypegooseClass {
   new (...args: any[]);

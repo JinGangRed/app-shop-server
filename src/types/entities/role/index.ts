@@ -1,6 +1,8 @@
-import { Permission } from '@/types/entities/permission';
 import { Ref, prop } from '@typegoose/typegoose';
+
 import { TrackActionModel } from '../base';
+
+import { Permission } from '@/types/entities/permission';
 
 export class Role extends TrackActionModel {
   @prop({ required: true })

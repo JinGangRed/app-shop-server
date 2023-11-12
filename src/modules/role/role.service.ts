@@ -1,7 +1,8 @@
 import { ObjectId } from 'mongoose';
+import { Injectable } from '@nestjs/common';
+
 import { MongooseModel } from '@/types/database';
 import { CreateRoleDTO, Role, UpdateRoleDto } from '@/types/entities/role';
-import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@/transformers/model.transformer';
 
 @Injectable()

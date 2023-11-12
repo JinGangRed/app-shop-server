@@ -1,4 +1,3 @@
-import { defaultAccount } from '@/constants/entity.contants';
 import {
   Body,
   Controller,
@@ -8,15 +7,18 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { upperFirst } from 'lodash';
+
 import { AccountService } from './account.service';
+
 import {
   Account,
   CreateAccountDTO,
   UpdateAccountDTO,
 } from '@/types/entities/account';
-import { ObjectId } from 'mongoose';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { upperFirst } from 'lodash';
+import { defaultAccount } from '@/constants/entity.contants';
 const contollerName = 'account';
 @ApiBearerAuth()
 @ApiTags(upperFirst(contollerName))

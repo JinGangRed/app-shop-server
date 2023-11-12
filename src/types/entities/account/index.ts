@@ -1,4 +1,5 @@
 import { Ref, prop } from '@typegoose/typegoose';
+
 import { Role } from '../role';
 import { TrackActionModel } from '../base';
 export class Account extends TrackActionModel {

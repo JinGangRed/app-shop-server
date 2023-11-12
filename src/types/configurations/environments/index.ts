@@ -1,6 +1,6 @@
-import { config as base } from '@/configurations/environments/default';
-
 import type { config as production } from '@/configurations/environments/production';
+
+import { config as base } from '@/configurations/environments/default';
 
 export type DefaultConfig = typeof base;
 

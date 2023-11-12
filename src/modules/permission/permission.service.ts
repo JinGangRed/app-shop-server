@@ -1,8 +1,9 @@
-import { Permission, CreatePermissionDTO } from '@/types/entities/permission';
-import { InjectModel } from '@/transformers/model.transformer';
 import { Injectable } from '@nestjs/common';
-import { MongooseDoc, MongooseModel } from '@/types/database';
 import { ObjectId } from 'mongoose';
+
+import { CreatePermissionDTO, Permission } from '@/types/entities/permission';
+import { InjectModel } from '@/transformers/model.transformer';
+import { MongooseDoc, MongooseModel } from '@/types/database';
 
 @Injectable()
 export class PermissionService {

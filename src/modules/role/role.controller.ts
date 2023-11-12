@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { upperFirst } from 'lodash';
-import { RoleService } from './role.service';
-import { CreateRoleDTO } from '@/types/entities/role';
 import { ObjectId } from 'mongoose';
+
+import { RoleService } from './role.service';
+
+import { CreateRoleDTO } from '@/types/entities/role';
 
 const controllerName = 'role';
 

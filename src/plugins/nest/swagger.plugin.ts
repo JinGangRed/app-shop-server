@@ -1,7 +1,8 @@
-import envConstants from '@/constants/env.constants';
 import { INestApplication } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
+import envConstants from '@/constants/env.constants';
 
 const setupSwagger = (app: INestApplication, config: ConfigService) => {
   const options = new DocumentBuilder()
@@ -18,6 +19,7 @@ const setupSwagger = (app: INestApplication, config: ConfigService) => {
       swaggerOptions: {
         useGlobalPrefix: true,
       },
+      explorer: true,
     },
   );
 };

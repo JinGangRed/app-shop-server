@@ -1,3 +1,6 @@
+import { Injectable } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
+
 import { QueryAccountDTO } from '@/types/entities/account';
 import { InjectModel } from '@/transformers/model.transformer';
 import {
@@ -6,8 +9,6 @@ import {
   UpdateAccountDTO,
 } from '@/types/entities/account';
 import { MongooseDoc, MongooseModel } from '@/types/database';
-import { Injectable } from '@nestjs/common';
-import { ObjectId } from 'mongoose';
 @Injectable()
 export class AccountService {
   constructor(

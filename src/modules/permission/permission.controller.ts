@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { PermissionService } from './permission.service';
-import { CreatePermissionDTO } from '@/types/entities/permission';
 import { ObjectId } from 'mongoose';
 import { upperFirst } from 'lodash';
+
+import { PermissionService } from './permission.service';
+
+import { CreatePermissionDTO } from '@/types/entities/permission';
 
 const controllerName = 'permission';
 
