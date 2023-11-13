@@ -1,23 +1,38 @@
-import { createLogger, format, transports } from 'winston';
+import { createLogger, format, transport, transports } from 'winston';
 import 'winston-daily-rotate-file';
-const { combine, json, timestamp } = format;
+import { DailyRotateFileTransportOptions } from 'winston-daily-rotate-file';
+const { combine, json, timestamp,prettyPrint } = format;
+
+const defaultTransport:DailyRotateFileTransportOptions = {
+  utc:true,
+  filename:'%DATE%.log',
+  datePattern:"YYYY-MM-DD",
+  zippedArchive:true,
+  maxSize:"500M",
+}
+
+const infoTransport:transport = new transports.DailyRotateFile({
+  ...defaultTransport,
+  dirname:"logs/info",
+  level:"info",
+});
+
+const errorTransport:transport = new transports.DailyRotateFile({
+  ...defaultTransport,
+  dirname:"logs/error",
+  level:"error"
+});
+
 const winstonLogger = createLogger({
-  format: combine(timestamp(), json()),
+  format: combine(timestamp({format:"YYYY-MM-DD HH:mm:ss.SSSZZ"}), json(),prettyPrint()),
   transports: [
-    new transports.File({
-      dirname: 'logs',
-      filename: 'error.log',
-      level: 'error',
-    }),
-    new transports.DailyRotateFile({
-      dirname: 'logs',
-      filename: '%DATE%.log',
-      datePattern: 'YYYY-MM-DD',
-      zippedArchive: true,
-      maxSize: '500M',
-      level: 'info',
-    }),
+    infoTransport,
+    errorTransport,
   ],
 });
+
+if (process.env.NODE_ENV !== 'production') {
+  // winstonLogger.add(new transports.Console());
+}
 
 export default winstonLogger;

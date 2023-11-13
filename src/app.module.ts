@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
@@ -28,11 +28,11 @@ const loadEnvFile = () => {
     RoleModule,
     PermissionModule,
   ],
-
+  providers:[Logger],
   controllers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware);
+    consumer.apply(LoggerMiddleware).forRoutes("*");
   }
 }
