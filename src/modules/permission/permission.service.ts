@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 
-import { CreatePermissionDTO, Permission } from '@/types/entities/permission';
 import { InjectModel } from '@/transformers/model.transformer';
 import { MongooseDoc, MongooseModel } from '@/types/database';
+import { CreatePermissionDTO, Permission } from '@/types/entities/permission';
 
 @Injectable()
 export class PermissionService {
@@ -18,8 +18,10 @@ export class PermissionService {
     return await this.permissionModel.create(createPermissionDTO);
   }
 
-  public async insertMany(createPermissionDTOs: CreatePermissionDTO[]):Promise<MongooseDoc<Permission>[]> {
-    return this.permissionModel.insertMany(createPermissionDTOs)
+  public async insertMany(
+    createPermissionDTOs: CreatePermissionDTO[],
+  ): Promise<MongooseDoc<Permission>[]> {
+    return this.permissionModel.insertMany(createPermissionDTOs);
   }
 
   public async delete(id: ObjectId | string) {

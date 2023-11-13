@@ -1,18 +1,21 @@
+import { RoleService } from '@modules/role/role.service';
 import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 
-import { QueryAccountDTO } from '@/types/entities/account';
 import { InjectModel } from '@/transformers/model.transformer';
+import { MongooseDoc, MongooseModel } from '@/types/database';
 import {
   Account,
   CreateAccountDTO,
+  QueryAccountDTO,
   UpdateAccountDTO,
 } from '@/types/entities/account';
-import { MongooseDoc, MongooseModel } from '@/types/database';
+
 @Injectable()
 export class AccountService {
   constructor(
     @InjectModel(Account) private readonly accountModel: MongooseModel<Account>,
+    private readonly roleService: RoleService,
   ) {}
 
   /**
@@ -23,14 +26,21 @@ export class AccountService {
   public async create(
     accountDTO: CreateAccountDTO,
   ): Promise<MongooseDoc<Account>> {
-    const accountDoc = await this.accountModel.create(accountDTO);
+    let roles;
+    if (accountDTO.roles) {
+      roles = await this.roleService.insertMany(accountDTO.roles);
+    }
+    const accountDoc = await this.accountModel.create({
+      ...accountDTO,
+      roles: roles,
+    });
     return accountDoc;
   }
 
   public async bulkInsert(
     accountDTOs: Array<CreateAccountDTO>,
-  ): Promise<CreateAccountDTO[]> {
-    return await this.accountModel.insertMany(accountDTOs);
+  ): Promise<Promise<MongooseDoc<Account>>[]> {
+    return accountDTOs.map((data) => this.create(data));
   }
 
   /**

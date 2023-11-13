@@ -1,6 +1,6 @@
-import { Ref, prop } from '@typegoose/typegoose';
+import { prop, Ref } from '@typegoose/typegoose';
 
-import { TrackActionModel } from '../base';
+import { ExculdeTrackType, ReplaceRef, TrackActionModel } from '../base';
 
 import { Permission } from '@/types/entities/permission';
 
@@ -17,6 +17,8 @@ export class Role extends TrackActionModel {
   @prop({ ref: () => Permission })
   permissions?: Ref<Permission>[];
 }
-export type CreateRoleDTO = Omit<Role, 'createAt' | 'updateAt' | 'permissions'> & {permissions:Permission[]};
+export type CreateRoleDTO = ReplaceRef<ExculdeTrackType<Role>>;
 
-export type UpdateRoleDto = Partial<Role>;
+export type UpdateRoleDto = Partial<CreateRoleDTO>;
+
+export type QueryRoleDto = Partial<CreateRoleDTO>;

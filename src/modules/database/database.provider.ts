@@ -7,9 +7,9 @@ import envConstants from '@/constants/env.constants';
 import setupPlugins from '@/plugins/mongoose';
 
 export const databaseProvider: Provider = {
-  inject: [ConfigService,Logger],
+  inject: [ConfigService, Logger],
   provide: DB_CONNECTION_TOKEN,
-  useFactory: async (configService: ConfigService,logger:Logger) => {
+  useFactory: async (configService: ConfigService, logger: Logger) => {
     const dbConnection = configService.get(envConstants.dbConnection);
     const connection = () => {
       mongoose.connect(dbConnection, {}).catch((error) => console.log(error));
@@ -24,14 +24,14 @@ export const databaseProvider: Provider = {
       logger.log('database is connected.');
     });
 
-    mongoose.connection.on("error", (err) => {
-      logger.error(`database connection has error:${err}`)
+    mongoose.connection.on('error', (err) => {
+      logger.error(`database connection has error:${err}`);
     });
 
     try {
       return await connection();
     } catch (error) {
-      logger.error(`database has error occors:${error}`)
+      logger.error(`database has error occors:${error}`);
     }
   },
 };

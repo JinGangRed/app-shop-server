@@ -1,7 +1,7 @@
-import { Ref,  prop } from '@typegoose/typegoose';
+import { prop, Ref } from '@typegoose/typegoose';
 
+import { ExculdeTrackType, ReplaceRef, TrackActionModel } from '../base';
 import { Role } from '../role';
-import {  ExculdeTrackType, ExculdeType, Override, TrackActionModel } from '../base';
 export class Account extends TrackActionModel {
   @prop({ required: true })
   username: string;
@@ -12,19 +12,14 @@ export class Account extends TrackActionModel {
   @prop({ required: true })
   password: string;
 
-  @prop({ type: () => Role })
+  @prop({ ref: () => Role })
   roles?: Ref<Role>[];
-
-  a:string[]
-
 }
+
 export type LoginAccountDTO = Pick<Account, 'username' | 'password'>;
 
-export type UpdateAccountDTO = Partial<
-  Omit<Account, 'createdAt' | 'updatedAt'>
->;
+export type CreateAccountDTO = ReplaceRef<ExculdeTrackType<Account>>;
 
-export type CreateAccountDTO = Override<ExculdeType<Account,TrackActionModel>,{roles?:Role[]}>
+export type UpdateAccountDTO = Partial<CreateAccountDTO>;
 
-
-export type QueryAccountDTO = Partial<Account>;
+export type QueryAccountDTO = Partial<CreateAccountDTO>;

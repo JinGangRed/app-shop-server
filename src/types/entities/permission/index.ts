@@ -1,4 +1,4 @@
-import { TrackActionModel } from '../base';
+import { ExculdeTrackType, TrackActionModel } from '../base';
 
 // 权限
 export enum PermissionType {
@@ -16,4 +16,8 @@ export class Permission extends TrackActionModel {
   path?: string;
 }
 
-export type CreatePermissionDTO = Omit<Permission, 'createAt' | 'updateAt'>;
+export type CreatePermissionDTO = ExculdeTrackType<Permission>;
+
+export type UpdatePermissionDTO = Partial<CreatePermissionDTO>;
+
+export type QueryPermissionDTO = Partial<CreatePermissionDTO>;
