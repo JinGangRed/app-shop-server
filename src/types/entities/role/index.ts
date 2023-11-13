@@ -17,6 +17,6 @@ export class Role extends TrackActionModel {
   @prop({ ref: () => Permission })
   permissions?: Ref<Permission>[];
 }
-export type CreateRoleDTO = Omit<Role, 'createAt' | 'updateAt'>;
+export type CreateRoleDTO = Omit<Role, 'createAt' | 'updateAt' | 'permissions'> & {permissions:Permission[]};
 
 export type UpdateRoleDto = Partial<Role>;
