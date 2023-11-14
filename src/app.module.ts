@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { PermissionModule } from './modules/permission/permission.module';
 import { RoleModule } from './modules/role/role.module';
+import { ProductsModule } from './modules/products/products.module';
 
 import { configuration } from '@/configurations';
 
@@ -27,6 +28,7 @@ const loadEnvFile = () => {
     AuthModule,
     RoleModule,
     PermissionModule,
+    ProductsModule,
   ],
   providers: [Logger],
   controllers: [],
