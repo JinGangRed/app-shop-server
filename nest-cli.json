@@ -24,7 +24,9 @@
       "service": false,
       "s": false,
       "controller": false,
-      "co": false
+      "co": false,
+      "res": false,
+      "resource": false
     }
   }
 }
