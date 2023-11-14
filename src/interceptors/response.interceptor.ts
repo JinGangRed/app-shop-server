@@ -2,14 +2,13 @@ import {
   CallHandler,
   ContextType,
   ExecutionContext,
-  HttpStatus,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable, map } from 'rxjs';
-import { GqlExecutionContext, GqlContextType } from '@nestjs/graphql';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
-import { HttpResponse } from './../types/http/response';
+import { HttpResponse } from '@/types/http/response';
 const whiteList: string[] = ['/graphql', '/swagger'];
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {

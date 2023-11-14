@@ -18,6 +18,7 @@ const setupSwagger = (app: INestApplication, config: ConfigService) => {
     {
       swaggerOptions: {
         useGlobalPrefix: true,
+        docExpansion: 'none',
       },
       explorer: true,
     },
