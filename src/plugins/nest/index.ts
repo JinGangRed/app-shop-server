@@ -1,4 +1,8 @@
-import { INestApplication, VersioningType } from '@nestjs/common';
+import {
+  INestApplication,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 // import compression from 'compression';
 import { ConfigService } from '@nestjs/config';
 
@@ -10,6 +14,7 @@ const setupAPP = (app: INestApplication): INestApplication => {
   const config = app.get(ConfigService);
 
   app.setGlobalPrefix(config.get(envConstants.appEndpointPrefix));
+  app.useGlobalPipes(new ValidationPipe());
 
   app.enableVersioning({
     type: VersioningType.URI,
