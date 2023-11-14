@@ -12,10 +12,9 @@ const setupAPP = (app: INestApplication): INestApplication => {
   app.setGlobalPrefix(config.get(envConstants.appEndpointPrefix));
 
   app.enableVersioning({
-    type:VersioningType.URI,
-    defaultVersion:"1",
-
-  })
+    type: VersioningType.URI,
+    defaultVersion: '1',
+  });
   setupSwagger(app, config);
 
   return app;

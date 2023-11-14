@@ -28,11 +28,11 @@ const loadEnvFile = () => {
     RoleModule,
     PermissionModule,
   ],
-  providers:[Logger],
+  providers: [Logger],
   controllers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes("*");
+    consumer.apply(LoggerMiddleware).forRoutes('*');
   }
 }
