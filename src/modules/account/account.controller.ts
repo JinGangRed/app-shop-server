@@ -1,18 +1,14 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { upperFirst } from 'lodash';
 
 import { AccountService } from './account.service';
-import { CreateAccountDTO, UpdateAccountDTO } from './account.model';
+import {
+  CreateAccountDTO,
+  LoginAccountDTO,
+  UpdateAccountDTO,
+} from './account.model';
 
 const contollerName = 'account';
 @ApiTags(upperFirst(contollerName))
@@ -20,8 +16,20 @@ const contollerName = 'account';
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
+  @Post('/login')
+  @ApiOperation({
+    description: '登录接口',
+    summary: '用户登录',
+  })
+  @ApiBody({
+    type: () => LoginAccountDTO,
+    description: '登录的账户',
+  })
+  public login(@Body() loginAccount: LoginAccountDTO) {
+    return loginAccount;
+  }
+
   @Post()
-  // @ApiBody({ type: CreateAccountDTO })
   public create(@Body() createAccountDTO: CreateAccountDTO) {
     return this.accountService.create(createAccountDTO);
   }
