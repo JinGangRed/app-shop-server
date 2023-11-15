@@ -10,7 +10,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { Response } from 'express';
 
 import { HttpResponse } from '@/types/http/response';
-const whiteList: string[] = ['/graphql', '/swagger'];
+// const whiteList: string[] = ['/graphql', '/swagger'];
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {

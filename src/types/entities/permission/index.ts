@@ -1,4 +1,4 @@
-import { Severity, modelOptions, prop } from '@typegoose/typegoose';
+import { Severity, modelOptions } from '@typegoose/typegoose';
 
 import { TrackActionModel } from '../base';
 

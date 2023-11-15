@@ -1,8 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { AccountService } from '@modules/account/account.service';
-import { RoleService } from '@modules/role/role.service';
-import { PermissionService } from '@modules/permission/permission.service';
-import { ObjectId } from 'mongoose';
 
 import { defaultInitData } from './init.entity.data';
 
