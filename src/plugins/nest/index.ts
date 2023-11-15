@@ -15,14 +15,16 @@ const setupAPP = (app: INestApplication): INestApplication => {
   const config = app.get(ConfigService);
 
   app.setGlobalPrefix(config.get(envConstants.appEndpointPrefix));
-  app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalInterceptors(new ResponseInterceptor());
 
   app.enableVersioning({
     type: VersioningType.URI,
     defaultVersion: '1',
   });
   setupSwagger(app, config);
+
+  app.useGlobalPipes(new ValidationPipe());
+
+  app.useGlobalInterceptors(new ResponseInterceptor());
 
   return app;
 };

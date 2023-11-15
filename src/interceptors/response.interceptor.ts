@@ -7,13 +7,14 @@ import {
 } from '@nestjs/common';
 import { Observable, map } from 'rxjs';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { Response } from 'express';
 
 import { HttpResponse } from '@/types/http/response';
 const whiteList: string[] = ['/graphql', '/swagger'];
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    return this.isHandler(context)
+    return this.isHttpHandler(context)
       ? this.handleRestfulResponse(context, next)
       : this.handleGraphqlResponse(context, next);
   }
@@ -22,11 +23,14 @@ export class ResponseInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<HttpResponse<any>> {
+    const statusCode = context
+      .switchToHttp()
+      .getResponse<Response>().statusCode;
     return next.handle().pipe(
       map((data) => {
         return {
           data,
-          status: context.switchToHttp().getResponse().statusCode,
+          status: statusCode,
           message: 'Success',
         } as HttpResponse<any>;
       }),
@@ -49,11 +53,7 @@ export class ResponseInterceptor implements NestInterceptor {
     );
   }
 
-  private isHandler(context: ExecutionContext) {
-    console.log(context);
-    return (
-      context.getType<ContextType>() === 'http' &&
-      whiteList.includes(context.switchToHttp().getRequest())
-    );
+  private isHttpHandler(context: ExecutionContext) {
+    return context.getType<ContextType>() === 'http';
   }
 }

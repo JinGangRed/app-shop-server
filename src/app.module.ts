@@ -8,6 +8,7 @@ import { DatabaseModule } from './modules/database/database.module';
 import { PermissionModule } from './modules/permission/permission.module';
 import { RoleModule } from './modules/role/role.module';
 import { ProductsModule } from './modules/products/products.module';
+import { InitModule } from './modules/init/init.module';
 
 import { configuration } from '@/configurations';
 
@@ -29,12 +30,13 @@ const loadEnvFile = () => {
     RoleModule,
     PermissionModule,
     ProductsModule,
+    InitModule,
   ],
   providers: [Logger],
   controllers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
+    // consumer.apply(LoggerMiddleware).forRoutes('*');
   }
 }

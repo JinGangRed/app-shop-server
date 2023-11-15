@@ -8,9 +8,10 @@ import { ObjectId } from 'mongoose';
   },
 })
 export class TrackActionModel extends TimeStamps {
-  @prop()
+  @prop({ default: '' })
   createBy?: string | ObjectId;
-  @prop()
+
+  @prop({ default: '' })
   updateBy?: string | ObjectId;
 }
 

@@ -1,3 +1,5 @@
+import { Severity, modelOptions, prop } from '@typegoose/typegoose';
+
 import { TrackActionModel } from '../base';
 
 // 权限
@@ -5,13 +7,11 @@ export enum PermissionType {
   Route,
   Action,
 }
-
+@modelOptions({
+  options: { allowMixed: Severity.ALLOW },
+})
 export class Permission extends TrackActionModel {
-  type?: PermissionType = PermissionType.Action;
-  subject?: string;
-  action?: string;
-  actionCode?: string;
+  type!: PermissionType;
   displayName?: string;
   description?: string;
-  path?: string;
 }

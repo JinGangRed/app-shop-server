@@ -14,18 +14,11 @@ import { upperFirst } from 'lodash';
 import { AccountService } from './account.service';
 import { CreateAccountDTO, UpdateAccountDTO } from './account.model';
 
-import { defaultAccount } from '@/constants/entity.contants';
 const contollerName = 'account';
-@ApiBearerAuth()
 @ApiTags(upperFirst(contollerName))
 @Controller(contollerName)
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
-
-  @Get('init')
-  public init() {
-    return this.accountService.bulkInsert(defaultAccount);
-  }
 
   @Post()
   // @ApiBody({ type: CreateAccountDTO })

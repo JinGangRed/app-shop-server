@@ -27,21 +27,7 @@ export class AccountService {
   public async create(
     accountDTO: CreateAccountDTO,
   ): Promise<MongooseDoc<Account>> {
-    let roles;
-    if (accountDTO.roles) {
-      roles = await this.roleService.insertMany(accountDTO.roles);
-    }
-    const accountDoc = await this.accountModel.create({
-      ...accountDTO,
-      roles: roles,
-    });
-    return accountDoc;
-  }
-
-  public async bulkInsert(
-    accountDTOs: Array<CreateAccountDTO>,
-  ): Promise<Promise<MongooseDoc<Account>>[]> {
-    return accountDTOs.map((data) => this.create(data));
+    return this.accountModel.create(accountDTO);
   }
 
   /**
