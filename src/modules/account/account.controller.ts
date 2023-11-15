@@ -12,12 +12,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { upperFirst } from 'lodash';
 
 import { AccountService } from './account.service';
+import { CreateAccountDTO, UpdateAccountDTO } from './account.model';
 
-import {
-  Account,
-  CreateAccountDTO,
-  UpdateAccountDTO,
-} from '@/types/entities/account';
 import { defaultAccount } from '@/constants/entity.contants';
 const contollerName = 'account';
 @ApiBearerAuth()
@@ -33,7 +29,7 @@ export class AccountController {
 
   @Post()
   // @ApiBody({ type: CreateAccountDTO })
-  public create(@Body() createAccountDTO: CreateAccountDTO): Promise<Account> {
+  public create(@Body() createAccountDTO: CreateAccountDTO) {
     return this.accountService.create(createAccountDTO);
   }
 

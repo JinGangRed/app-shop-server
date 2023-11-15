@@ -10,7 +10,7 @@ import {
 
 import { ProductsService } from './products.service';
 
-import { CreateProductDto, UpdateProductDto } from '@/types/entities/product';
+import { CreateProductDto, UpdateProductDto } from '@/types/entities';
 
 @Controller('products')
 export class ProductsController {

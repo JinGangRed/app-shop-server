@@ -1,5 +1,5 @@
-import { CreateAccountDTO } from '@/types/entities/account';
-import { PermissionType } from '@/types/entities/permission';
+import { CreateAccountDTO } from '@/modules/account/account.model';
+import { PermissionType } from '@/types/entities';
 
 export const defaultAccount: CreateAccountDTO[] = [
   {

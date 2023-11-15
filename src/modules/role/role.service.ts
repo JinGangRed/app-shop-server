@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 
+import { CreateRoleDTO, UpdateRoleDto } from './role.model';
+
 import { PermissionService } from '@/modules/permission/permission.service';
 import { InjectModel } from '@/transformers/model.transformer';
 import { MongooseDoc, MongooseModel } from '@/types/database';
-import { Permission } from '@/types/entities/permission';
-import { CreateRoleDTO, Role, UpdateRoleDto } from '@/types/entities/role';
+import { Permission, Role } from '@/types/entities';
 
 @Injectable()
 export class RoleService {

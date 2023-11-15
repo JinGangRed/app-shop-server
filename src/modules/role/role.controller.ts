@@ -4,8 +4,7 @@ import { upperFirst } from 'lodash';
 import { ObjectId } from 'mongoose';
 
 import { RoleService } from './role.service';
-
-import { CreateRoleDTO } from '@/types/entities/role';
+import { CreateRoleDTO } from './role.model';
 
 const controllerName = 'role';
 

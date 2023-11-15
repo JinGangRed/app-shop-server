@@ -4,8 +4,7 @@ import { ObjectId } from 'mongoose';
 import { upperFirst } from 'lodash';
 
 import { PermissionService } from './permission.service';
-
-import { CreatePermissionDTO } from '@/types/entities/permission';
+import { CreatePermissionDTO } from './permission.model';
 
 const controllerName = 'permission';
 

@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 
+import { CreatePermissionDTO } from './permission.model';
+
 import { InjectModel } from '@/transformers/model.transformer';
 import { MongooseDoc, MongooseModel } from '@/types/database';
-import { CreatePermissionDTO, Permission } from '@/types/entities/permission';
+import { Permission } from '@/types/entities';
 
 @Injectable()
 export class PermissionService {

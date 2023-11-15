@@ -2,14 +2,15 @@ import { RoleService } from '@modules/role/role.service';
 import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 
-import { InjectModel } from '@/transformers/model.transformer';
-import { MongooseDoc, MongooseModel } from '@/types/database';
 import {
-  Account,
   CreateAccountDTO,
   QueryAccountDTO,
   UpdateAccountDTO,
-} from '@/types/entities/account';
+} from './account.model';
+
+import { InjectModel } from '@/transformers/model.transformer';
+import { MongooseDoc, MongooseModel } from '@/types/database';
+import { Account } from '@/types/entities';
 
 @Injectable()
 export class AccountService {

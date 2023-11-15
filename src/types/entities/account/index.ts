@@ -1,6 +1,6 @@
 import { prop, Ref } from '@typegoose/typegoose';
 
-import { ExculdeTrackType, ReplaceRef, TrackActionModel } from '../base';
+import { TrackActionModel } from '../base';
 import { Role } from '../role';
 export class Account extends TrackActionModel {
   @prop({ required: true })
@@ -15,11 +15,3 @@ export class Account extends TrackActionModel {
   @prop({ ref: () => Role })
   roles?: Ref<Role>[];
 }
-
-export type LoginAccountDTO = Pick<Account, 'username' | 'password'>;
-
-export type CreateAccountDTO = ReplaceRef<ExculdeTrackType<Account>>;
-
-export type UpdateAccountDTO = Partial<CreateAccountDTO>;
-
-export type QueryAccountDTO = Partial<CreateAccountDTO>;
